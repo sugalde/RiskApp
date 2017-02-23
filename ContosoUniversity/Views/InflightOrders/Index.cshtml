@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ContosoUniversity.Models.InflightOrder>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LogNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FleetNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuotationNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountOrder)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FleetNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuotationNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountOrder)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) 
+            @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ContosoUniversity.Models.TransactionLog>
+
+@{
+    ViewBag.Title = "Transactions logs";
+}
+
+<h2></h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FleetNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuotationID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreditLineInitial)
+        </th>
+        <th>
+            OutstandingBalance
+        </th>
+        <th>
+            WorkProgress
+        </th>
+        <th>
+            InFlight
+        </th>
+        <th>
+            Sum
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuotationAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FleetNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuotationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreditLineInitial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OutstandingBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkProgress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InFlight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuotationAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestStatus)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>*@
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

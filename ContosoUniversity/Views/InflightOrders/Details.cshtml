@@ -1,0 +1,58 @@
+﻿@model ContosoUniversity.Models.InflightOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InflightOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LogNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FleetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FleetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuotationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuotationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountOrder)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

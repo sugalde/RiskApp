@@ -1,0 +1,114 @@
+﻿@model ContosoUniversity.Models.Risk
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Risk</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EconomicGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EconomicGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FleetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FleetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreditLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreditLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obligor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obligor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpirationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OutstandingBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OutstandingBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkProgress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkProgress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InFlight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InFlight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,124 @@
+﻿@model PagedList.IPagedList<ContosoUniversity.Models.Risk>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Credit lines";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("New Credit Line", "Create")<br />
+    @Html.ActionLink("New Request", "Check")
+</p>
+@using (Html.BeginForm("Index", "Risks", FormMethod.Get))
+{
+    <p>
+        Find by: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+@using (Html.BeginForm("ExportData", "Risks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Economic Group", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+         ParentName
+        </th>
+        <th>
+            @Html.ActionLink("Fleet Number", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+       CreditLine
+        </th>
+        <th>
+         Currency
+        </th>
+        <th>
+        ExchangeRate
+        </th>
+        <th>
+            @Html.ActionLink("Obligor", "Index", new { sortOrder = ViewBag.ObligorSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+         ExpirationDate
+        </th>
+        <th>
+         OutstandingBalance
+        </th>
+        <th>
+         WorkProgress
+        </th>
+        <th>
+        InFlight
+        </th>
+        <th>
+        Sum
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EconomicGroup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FleetNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreditLine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Currency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExchangeRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obligor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpirationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OutstandingBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkProgress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InFlight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sum)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "RiskDetails", new { id = item.FleetNumber })|
+            @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |*@
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+        </td>
+    </tr>
+}
+    <tr>
+        <td>
+            <input type="submit" name="Export" id="Export" value="Export" />
+        </td>
+    </tr>
+</table>
+}
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
