@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Contoso University</title>
+    <title>@ViewBag.Title </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script type="text/javascript">
@@ -30,7 +30,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Credit Lines", "Index", "Risks")</li>
+                    <li>@Html.ActionLink("Credit Lines", "List", "Risks")</li>
                     <li>@Html.ActionLink("Credit Request", "Create", "TransactionLogs")</li>
                     @*<li>@Html.ActionLink("Inflight Orders", "Index", "InflightOrders")</li>*@
                     @*<li>@Html.ActionLink("Students", "Index", "Student")</li>

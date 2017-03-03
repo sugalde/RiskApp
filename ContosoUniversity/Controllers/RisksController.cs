@@ -19,13 +19,13 @@ namespace ContosoUniversity.Controllers
     {
         private SchoolContext db = new SchoolContext();
 
-        // GET: Risks
-        //public ActionResult Index()
-        //{
-        //    return View(db.Risks.ToList());
-        //}
+        //GET: Risks
+        public ActionResult Index()
+        {
+            return View(db.Risks.ToList());
+        }
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult List(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Economic Group" : "";
@@ -122,7 +122,7 @@ namespace ContosoUniversity.Controllers
                 risk.CreatedBy = Environment.UserName;
                 db.Risks.Add(risk);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
 
             return View(risk);
@@ -163,7 +163,7 @@ namespace ContosoUniversity.Controllers
                 risk.CreatedBy = Environment.UserName;
                 db.Entry(risk).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             return View(risk);
         }
@@ -191,7 +191,7 @@ namespace ContosoUniversity.Controllers
             Risk risk = db.Risks.Find(id);
             db.Risks.Remove(risk);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
         //POST: RiskLists/ExportData
@@ -214,7 +214,7 @@ namespace ContosoUniversity.Controllers
             Response.Flush();
             Response.End();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
         protected override void Dispose(bool disposing)

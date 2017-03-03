@@ -13,7 +13,7 @@
     @Html.ActionLink("New Credit Line", "Create")<br />
     @Html.ActionLink("New Request", "Check")
 </p>
-@using (Html.BeginForm("Index", "Risks", FormMethod.Get))
+@using (Html.BeginForm("List", "Risks", FormMethod.Get))
 {
     <p>
         Find by: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
@@ -120,5 +120,6 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
+@Html.PagedListPager(Model, page => Url.Action("List",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

@@ -219,6 +219,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -271,7 +272,7 @@
     <Content Include="Views\Risks\Delete.cshtml" />
     <Content Include="Views\Risks\Details.cshtml" />
     <Content Include="Views\Risks\Edit.cshtml" />
-    <Content Include="Views\Risks\Index.cshtml" />
+    <Content Include="Views\Risks\List.cshtml" />
     <Content Include="Views\TransactionLogs\Create.cshtml" />
     <Content Include="Views\TransactionLogs\Delete.cshtml" />
     <Content Include="Views\TransactionLogs\Details.cshtml" />
