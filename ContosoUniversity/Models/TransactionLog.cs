@@ -23,36 +23,42 @@ namespace ContosoUniversity.Models
         }
 
         [Display(Name = "Credit Line Initial")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal CreditLineInitial
         {
             get; set;
         }
 
         [Display(Name = "Outstanding Balance")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal OutstandingBalance
         {
             get; set;
         }
 
         [Display(Name = "Work in Progress")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal WorkProgress
         {
             get; set;
         }
 
         [Display(Name = "In Flight")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal InFlight
         {
             get; set;
         }
 
         [Display(Name = "Sum")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal Sum
         {
             get; set;
         }
 
         [Display(Name = "Quotation Amount")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}", ApplyFormatInEditMode = true)]
         public decimal QuotationAmount
         {
             get; set;

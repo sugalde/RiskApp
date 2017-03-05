@@ -99,6 +99,7 @@ namespace ContosoUniversity.Controllers
             if (!String.IsNullOrEmpty(id.ToString()))
             {
                 logs = logs.Where(l => l.FleetNumber.ToString().Contains(id.ToString()));
+                logs = logs.OrderByDescending(s => s.Created);
             }
             return View(logs.ToList());
         }

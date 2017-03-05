@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
+using PagedList;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
 
 namespace ContosoUniversity.Controllers
 {
@@ -22,13 +26,49 @@ namespace ContosoUniversity.Controllers
         //}
 
         //[HttpPost]
-        public ActionResult Index(TransactionLog transactionLog)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Created Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var transaction = from t in db.TransactionLogs
                               select t;
-            var transactionfilter = transaction.Where(t => t.FleetNumber.ToString().Contains(transactionLog.FleetNumber.ToString()) 
-                              && t.QuotationID.ToString().Contains(transactionLog.QuotationID.ToString()));
-            return View(transactionfilter.ToList());
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                transaction = transaction.Where(s => s.RequestStatus.Contains(searchString) );
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    transaction = transaction.OrderByDescending(s => s.RequestStatus);
+                    break;
+                case "Date":
+                    transaction = transaction.OrderBy(s => s.Created);
+                    break;
+                case "date_desc":
+                    transaction = transaction.OrderByDescending(s => s.Created);
+                    break;
+                default:  // Name ascending 
+                    transaction = transaction.OrderBy(s => s.QuotationID);
+                    break;
+            }
+
+            int pageSize = 200;
+            int pageNumber = (page ?? 1);
+            return View(transaction.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: TransactionLogs/Details/5
@@ -81,7 +121,7 @@ namespace ContosoUniversity.Controllers
                
                 db.TransactionLogs.Add(transactionLog);
                 db.SaveChanges();
-                return RedirectToAction("Index",transactionLog);
+                return RedirectToAction("RiskDetails","Risks", new { id = transactionLog.FleetNumber });
             }
 
             return View(transactionLog);
@@ -141,6 +181,29 @@ namespace ContosoUniversity.Controllers
             TransactionLog transactionLog = db.TransactionLogs.Find(id);
             db.TransactionLogs.Remove(transactionLog);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //POST: RiskLists/ExportData
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult ExportData()
+        {
+            GridView gv = new GridView();
+            gv.DataSource = db.Risks.ToList();
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=Requestlist.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
             return RedirectToAction("Index");
         }
 

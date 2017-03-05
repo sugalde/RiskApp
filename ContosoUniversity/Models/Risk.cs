@@ -31,6 +31,7 @@ namespace ContosoUniversity.Models
         }
 
         [Display(Name = "Credit Line")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal CreditLine
         {
             get; set;
@@ -62,24 +63,28 @@ namespace ContosoUniversity.Models
         public DateTime ExpirationDate { get; set; }
 
         [Display(Name = "Outstanding Balance")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal OutstandingBalance
         {
             get; set;
         }
 
         [Display(Name = "Work in Progress")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal WorkProgress
         {
             get; set;
         }
 
         [Display(Name = "In Flight")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal InFlight
         {
             get; set;
         }
 
         [Display(Name = "Sum")]
+        [DisplayFormat(DataFormatString = "{0:#,###0.00}")]
         public decimal Sum
         {
             get; set;

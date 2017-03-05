@@ -1,47 +1,55 @@
-﻿@model IEnumerable<ContosoUniversity.Models.TransactionLog>
+﻿@model PagedList.IPagedList<ContosoUniversity.Models.TransactionLog>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Request";
 }
 
-<h2>Status Request</h2>
-
-<p>
- @*   @Html.ActionLink("Create New", "Create")*@
-</p>
+<h2>Credit Request List</h2>
+<br />
+@using (Html.BeginForm("Index", "TransactionLogs", FormMethod.Get))
+{
+    <p>
+        Find by status: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+@using (Html.BeginForm("ExportData", "TransactionLogs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FleetNumber)
+       Fleet Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuotationID)
+       Quotation ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreditLineInitial)
+      CreditLine Initial
         </th>
         <th>
-            OutstandingBalance
+            Outstanding Balance
         </th>
         <th>
-            WorkProgress
+            Work in Progress
         </th>
         <th>
-            InFlight
+            In Flight
         </th>
         <th>
             Sum
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuotationAmount)
+       Quotation Amount
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
+       Created By
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Created)
+            @Html.ActionLink("Created Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
-        <th>@Html.DisplayNameFor(model => model.RequestStatus)</th>
+        <th>@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -86,5 +94,15 @@
         </td>*@
     </tr>
 }
-
+    <tr>
+        <td>
+            <input type="submit" name="Export" id="Export" value="Export" class="btn btn-success"/>
+        </td>
+    </tr>
 </table>
+}
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
