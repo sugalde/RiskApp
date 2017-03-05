@@ -190,7 +190,7 @@ namespace ContosoUniversity.Controllers
         public ActionResult ExportData()
         {
             GridView gv = new GridView();
-            gv.DataSource = db.Risks.ToList();
+            gv.DataSource = db.TransactionLogs.ToList();
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;
