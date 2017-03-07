@@ -104,17 +104,20 @@ namespace ContosoUniversity.Controllers
                 
                 transactionLog.CreatedBy = Environment.UserName;
                 transactionLog.Created = DateTime.Now;
-                Risk risk = db.Risks.Find(transactionLog.FleetNumber);
-                transactionLog.CreditLineInitial = risk.CreditLine;
-                transactionLog.OutstandingBalance = risk.OutstandingBalance;
-                transactionLog.WorkProgress = risk.WorkProgress;
-                transactionLog.InFlight = risk.InFlight;
-                transactionLog.Sum = risk.Sum;
-                if(transactionLog.QuotationAmount < (risk.CreditLine-(risk.OutstandingBalance + risk.InFlight + risk.WorkProgress)) && DateTime.Now < risk.ExpirationDate)
+                var risk = from s in db.Risks
+                            select s;
+                    risk = risk.Where(s =>  s.FleetNumber.ToString().Contains(transactionLog.FleetNumber.ToString()));            
+               
+                transactionLog.CreditLineInitial = risk.ToList()[0].CreditLine;
+                transactionLog.OutstandingBalance = risk.ToList()[0].OutstandingBalance;
+                transactionLog.WorkProgress = risk.ToList()[0].WorkProgress;
+                transactionLog.InFlight = risk.ToList()[0].InFlight;
+                transactionLog.Sum = risk.ToList()[0].Sum;
+                if(transactionLog.QuotationAmount < (risk.ToList()[0].CreditLine-(risk.ToList()[0].OutstandingBalance + risk.ToList()[0].InFlight + risk.ToList()[0].WorkProgress)) && DateTime.Now < risk.ToList()[0].ExpirationDate)
                 {
                     transactionLog.RequestStatus = "approved";
                     //risk.OutstandingBalance = risk.OutstandingBalance - transactionLog.QuotationAmount;
-                    risk.InFlight = risk.InFlight + transactionLog.QuotationAmount;
+                    risk.ToList()[0].InFlight = risk.ToList()[0].InFlight + transactionLog.QuotationAmount;
                     TryUpdateModel(risk);
                 }
                 else { transactionLog.RequestStatus = "rejected"; }
