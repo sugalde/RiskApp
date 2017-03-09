@@ -20,42 +20,42 @@
         <input type="submit" value="Search" />
     </p>
 }
-@using (Html.BeginForm("ExportData", "Risks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ExportData", "List", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Economic Group", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Economic Group", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-         ParentName
+            @Html.ActionLink("Parent Name", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Fleet Number", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Fleet Number", "List", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-       CreditLine
+       Credit Line
         </th>
         <th>
          Currency
         </th>
         <th>
-        ExchangeRate
+        Exchange Rate
         </th>
         <th>
-            @Html.ActionLink("Obligor", "Index", new { sortOrder = ViewBag.ObligorSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Obligor", "List", new { sortOrder = ViewBag.ObligorSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-         ExpirationDate
+         Expiration Date
         </th>
         <th>
-         OutstandingBalance
+         Outstanding Balance
         </th>
         <th>
-         WorkProgress
+         Work Progress
         </th>
         <th>
-        InFlight
+        In Flight
         </th>
         <th>
         Sum

@@ -106,19 +106,39 @@ namespace ContosoUniversity.Controllers
                 transactionLog.Created = DateTime.Now;
                 var risk = from s in db.Risks
                             select s;
-                    risk = risk.Where(s =>  s.FleetNumber.ToString().Contains(transactionLog.FleetNumber.ToString()));            
-               
-                transactionLog.CreditLineInitial = risk.ToList()[0].CreditLine;
-                transactionLog.OutstandingBalance = risk.ToList()[0].OutstandingBalance;
-                transactionLog.WorkProgress = risk.ToList()[0].WorkProgress;
-                transactionLog.InFlight = risk.ToList()[0].InFlight;
-                transactionLog.Sum = risk.ToList()[0].Sum;
-                if(transactionLog.QuotationAmount < (risk.ToList()[0].CreditLine-(risk.ToList()[0].OutstandingBalance + risk.ToList()[0].InFlight + risk.ToList()[0].WorkProgress)) && DateTime.Now < risk.ToList()[0].ExpirationDate)
+                    risk = risk.Where(s =>  s.FleetNumber.ToString().Contains(transactionLog.FleetNumber.ToString()));    
+                var risks = from s in db.Risks
+                            select s;
+                string parent = risk.ToList()[0].ParentName;
+                risks = risks.Where(s => s.ParentName.Contains(parent));
+
+                decimal CreditLine = 0.0m;
+                decimal OutstandingBalance = 0.0m;
+                decimal WorkProgress= 0.0m;
+                decimal InFlight= 0.0m;
+                decimal sum = 0.0m;
+
+                foreach (var item in risks)
+                {
+                    CreditLine = CreditLine + item.CreditLine;
+                    OutstandingBalance = OutstandingBalance + item.OutstandingBalance;
+                    WorkProgress = WorkProgress + item.WorkProgress;
+                    InFlight = InFlight + item.InFlight;
+                    sum = sum + item.Sum;
+                }
+               transactionLog.CreditLineInitial = CreditLine;
+                transactionLog.OutstandingBalance = OutstandingBalance;
+                transactionLog.WorkProgress = WorkProgress;
+                transactionLog.InFlight = InFlight;
+                transactionLog.Sum = sum;
+                if(transactionLog.QuotationAmount < (CreditLine-(OutstandingBalance + InFlight + WorkProgress)) && DateTime.Now < risk.ToList()[0].ExpirationDate)
                 {
                     transactionLog.RequestStatus = "approved";
-                    //risk.OutstandingBalance = risk.OutstandingBalance - transactionLog.QuotationAmount;
-                    risk.ToList()[0].InFlight = risk.ToList()[0].InFlight + transactionLog.QuotationAmount;
-                    TryUpdateModel(risk);
+                    foreach (Risk item in risks)
+                    {
+                        item.InFlight = item.InFlight + transactionLog.QuotationAmount;
+                    }
+                    TryUpdateModel(risks);
                 }
                 else { transactionLog.RequestStatus = "rejected"; }
                

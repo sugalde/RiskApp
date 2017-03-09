@@ -67,7 +67,7 @@ namespace ContosoUniversity.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 100;
             int pageNumber = (page ?? 1);
             return View(risks.ToPagedList(pageNumber, pageSize));
         }
